@@ -1,0 +1,9 @@
+{
+	"name": "adf-kadambari-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "386995a6-4f75-4be8-a385-d72a59fb62f2",
+		"tenantId": "06402196-43f7-404f-a957-a6b3dc7b72b1"
+	}
+}
