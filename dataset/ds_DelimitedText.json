@@ -1,0 +1,21 @@
+{
+	"name": "ds_DelimitedText",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_HttpServer",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
