@@ -1,12 +1,15 @@
 {
-	"name": "ds_DelimitedText",
+	"name": "DelimitedText1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_HttpServer",
+			"referenceName": "ls_AzureDataLakeStorage",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"source_file_path": {
+			"sink_folder": {
+				"type": "string"
+			},
+			"sink_file": {
 				"type": "string"
 			}
 		},
@@ -14,11 +17,16 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation",
-				"relativeUrl": {
-					"value": "@dataset().source_file_path",
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().sink_file",
 					"type": "Expression"
-				}
+				},
+				"folderPath": {
+					"value": "@dataset().sink_folder",
+					"type": "Expression"
+				},
+				"fileSystem": "layer-1"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

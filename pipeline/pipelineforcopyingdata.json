@@ -1,5 +1,5 @@
 {
-	"name": "pipelinefor",
+	"name": "pipelineforcopyingdata",
 	"properties": {
 		"activities": [
 			{
@@ -50,6 +50,7 @@
 						"value": "@activity('gitLookup').output.value",
 						"type": "Expression"
 					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "CopyActivity",
@@ -74,12 +75,54 @@
 										"type": "DelimitedTextReadSettings"
 									}
 								},
-								"enableStaging": false
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
 							},
 							"inputs": [
 								{
 									"referenceName": "ds_DelimitedText",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"source_file_path": {
+											"value": "@item().git_file_path",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DelimitedText1",
+									"type": "DatasetReference",
+									"parameters": {
+										"sink_folder": {
+											"value": "@item().sink_folder",
+											"type": "Expression"
+										},
+										"sink_file": {
+											"value": "@item().sink_file_name",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
